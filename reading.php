@@ -1,20 +1,20 @@
 <?php 
 
-require 'PHPExcel/Classes/PHPExcel.php';
+require './PHPExcel/PHPExcel.php';
 
 $arquivo=$_FILES['uploadfile']['tmp_name'];
 
 $excelReader = PHPExcel_IOFactory::createReaderForFile($arquivo);
 
 $excelObj = $excelReader->load($arquivo);
-//caso não funcione usar getSheet(numero_indice)
+//if it not works use getSheet(number_index)
 $worksheet = $excelObj->getActiveSheet();
-//pega a quantidade de linhas
+//takes the lines total
 $lastRow = $worksheet->getHighestRow();
-//quantidade de colunas
+//columns quantity
 //$lastColumn = $worksheet->getHighestColumn();
 
-//dados
+//data
 echo 'tabela';
 echo '<table>';
 for ($row = 1; $row <= $lastRow; $row++) {
@@ -27,12 +27,12 @@ for ($row = 1; $row <= $lastRow; $row++) {
 }
 echo '</table>';
 
-//parâmetros
-//para transformar o worksheet num array
-//1º null primeiro para especificar o retorno caso a celula não exista
-//2º true indica se formulas deverão ser calculadas
-//3º true para indicar se o formato da celula deverá ser aplicado para os dados retornados
-//ex: 1246,00 se o formato decimal for 2
-//4º true indica se o indice do array vai ser um simples numero ou o numero atual da celula
+//parameters
+//transform a worksheet into array
+//1º null specify the return case the cell does note exist
+//2º true indicate if formulas must be calculated
+//3º true indicate if the format of cell must be applied to the data returned
+//ex: 1246,00 if the decimal format is "2"
+//4º true indicate if the index of array will be a simple number or the actual number of cell
 //ex: array[1]['A'] ou array[0][0]
 $excel_array = $worksheet->toArray(null, true, true, true);
